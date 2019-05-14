@@ -17,8 +17,8 @@ myDataTRANS_exp3 <- myData%>%mutate(expCondCat=factor(expCond, levels=c(0,1), la
 myDataTRANS2_exp3 <- myDataTRANS%>%mutate(SLCat=factor(SL, levels=c(1,2), labels=c("short","long")))
 
 
-logModelSL1.exp3 <- glmer(SLCat ~ repro * expCondCat +(1|ï..IDS), data=myDataTRANS2_exp3, control=glmerControl(optimizer="bobyqa"), family = binomial(link=logit))
-logModelSL2.exp3 <- glmer(SLCat ~ repro * expCondCat*CV +(1|ï..IDS), data=myDataTRANS2_exp3, control=glmerControl(optimizer="bobyqa"), family = binomial(link=logit))
+logModelSL1.exp3 <- glmer(SLCat ~ repro * expCondCat +(1|Ã¯..IDS), data=myDataTRANS2_exp3, control=glmerControl(optimizer="bobyqa"), family = binomial(link=logit))
+logModelSL2.exp3 <- glmer(SLCat ~ repro * expCondCat*CV +(1|Ã¯..IDS), data=myDataTRANS2_exp3, control=glmerControl(optimizer="bobyqa"), family = binomial(link=logit))
 
 plot_model(logModelSL1.exp3, type = "pred", terms = c("repro","expCondCat"))
 plot_model(logModelSL2.exp3, type = "pred", terms = c("repro","expCondCat"))
@@ -29,8 +29,10 @@ plot_model(logModelSL2.exp3, type = "pred", terms = c("repro","expCondCat"))
 # logistic mixed effects model. exp1, SL only 
 # PS: magnitude judgements were converted to SL judgements by dummy coding the data as 0 = short, 1 = long
 
-# rescale etmediðimizde intercept ile CV arasýndaki korelasyon = -0.922 (for model --> logModelSL2.exp1)
-# rescale ettiðimizde converge ediyor
+# PS: logistic generalized linear mixed effects model is highly sensitive to multicollinearity. 
+# if you have a multicollinearity problem which you do not handle with re-scaling your covariates, your model 
+# will fail to converge.
+
 setwd("C:\\Users\\tutku\\Desktop")
 myData_exp1=read.csv(file = "C:\\Users\\tutku\\Desktop\\SLCat_exp1_forLogistic.csv", head = TRUE, sep=",")
 myDataTRANS_exp1<-myData_exp1 %>%mutate(allStimCaseCat=factor(allStimCase, levels=c(11,12,21,22), labels=c("social direct","social averted","nonsocial direct", "nonsocial averted")))
