@@ -24,14 +24,15 @@ plot_model(logModelSL1.exp3, type = "pred", terms = c("repro","expCondCat"))
 plot_model(logModelSL2.exp3, type = "pred", terms = c("repro","expCondCat"))
 
 #############################
-# too large eigenvalue -> multicollinearity problem. you should rescale (i.e., center) your data
+
 
 # logistic mixed effects model. exp1, SL only 
 # PS: magnitude judgements were converted to SL judgements by dummy coding the data as 0 = short, 1 = long
 
 # PS: logistic generalized linear mixed effects model is highly sensitive to multicollinearity. 
 # if you have a multicollinearity problem which you do not handle with re-scaling your covariates, your model 
-# will fail to converge.
+# will fail to converge with the following error message:
+                    # "TOO LARGE EIGENVALUE" #
 
 setwd("C:\\Users\\tutku\\Desktop")
 myData_exp1=read.csv(file = "C:\\Users\\tutku\\Desktop\\SLCat_exp1_forLogistic.csv", head = TRUE, sep=",")
